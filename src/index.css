@@ -1,0 +1,175 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 14%;
+    --foreground: 280 8% 93%;
+    --card: 0 0% 16%;
+    --card-foreground: 280 8% 93%;
+    --popover: 0 0% 16%;
+    --popover-foreground: 280 8% 93%;
+    --primary: 280 8% 93%;
+    --primary-foreground: 0 0% 14%;
+    --secondary: 0 0% 22%;
+    --secondary-foreground: 280 8% 93%;
+    --muted: 0 0% 20%;
+    --muted-foreground: 0 0% 60%;
+    --accent: 0 0% 28%;
+    --accent-foreground: 280 8% 93%;
+    --destructive: 0 62% 50%;
+    --destructive-foreground: 280 8% 93%;
+    --border: 0 0% 22%;
+    --input: 0 0% 22%;
+    --ring: 280 8% 93%;
+    --radius: 0rem;
+    --glow: 0 0% 14%;
+    --grid-color: 0 0% 14%;
+    --gap: 8px;
+    --chamfer: 10px;
+  }
+
+  .dark,
+  .hero-dark {
+    --background: 0 0% 14%;
+    --foreground: 280 8% 93%;
+    --card: 0 0% 16%;
+    --card-foreground: 280 8% 93%;
+    --popover: 0 0% 16%;
+    --popover-foreground: 280 8% 93%;
+    --primary: 280 8% 93%;
+    --primary-foreground: 0 0% 14%;
+    --secondary: 0 0% 22%;
+    --secondary-foreground: 280 8% 93%;
+    --muted: 0 0% 20%;
+    --muted-foreground: 0 0% 60%;
+    --accent: 0 0% 28%;
+    --accent-foreground: 280 8% 93%;
+    --border: 0 0% 22%;
+    --input: 0 0% 22%;
+    --ring: 280 8% 93%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html, body {
+    overflow-x: hidden;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-family: 'Manrope', sans-serif;
+    font-weight: 400;
+    letter-spacing: -0.02em;
+  }
+  /* body::after scanlines disabled for testing */
+}
+
+/* ═══════════════════════════════════════════
+   DISPATCH-STYLE GRID PAGE
+   ═══════════════════════════════════════════ */
+
+/* Page wrapper — flat, line-divided */
+.grid-page {
+  background-color: hsl(var(--background));
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  overflow-x: hidden;
+  max-width: 100vw;
+}
+
+/* Row with gaps */
+.g-row {
+  display: flex;
+}
+.g-row > * { flex: 1; min-width: 0; }
+.g-row > * + * { border-left: 1px solid hsl(var(--foreground) / 0.15); }
+
+/* Column stack */
+.g-col {
+  display: flex;
+  flex-direction: column;
+}
+.g-col > * { min-width: 0; }
+
+/* Flat card — no background, no clip-path */
+.card-b {
+  position: relative;
+}
+
+/* Accent card — no background, no clip-path */
+.card-accent {
+  position: relative;
+}
+
+/* Corner/diamond classes kept as no-ops for compatibility */
+
+/* ─── Section label (◇ Label ·······) ─── */
+.section-label {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: hsl(var(--foreground) / 0.5);
+}
+.section-label::after {
+  content: '';
+  flex: 1;
+  border-top: 1px dotted hsl(var(--foreground) / 0.15);
+}
+
+/* Section label on accent bg */
+.section-label-accent {
+  color: hsl(var(--primary-foreground) / 0.6);
+}
+.section-label-accent::after {
+  border-top-color: hsl(var(--primary-foreground) / 0.2);
+}
+
+/* ─── Text utilities ─── */
+.text-display {
+  font-weight: 500;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.text-mega {
+  font-size: clamp(4rem, 16vw, 16rem);
+  font-weight: 400;
+  letter-spacing: -0.05em;
+  line-height: 0.85;
+}
+
+/* ─── Vertical dots (like Dispatch card separators) ─── */
+.v-dots {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+  padding: 4px 0;
+}
+.v-dots > span {
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: hsl(var(--foreground) / 0.15);
+}
+
+/* ─── Animations ─── */
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-30px) scale(1.02); }
+}
+@keyframes pulse-glow {
+  0%, 100% { opacity: 0.8; filter: blur(60px); }
+  50% { opacity: 1; filter: blur(80px); }
+}
+.animate-float-slow { animation: float-slow 12s ease-in-out infinite; }
+.animate-pulse-glow { animation: pulse-glow 6s ease-in-out infinite; }
